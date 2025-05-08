@@ -27,9 +27,9 @@ class TodoPage extends StatelessWidget {
                       BlocBuilder<TodoBloc, TodoState>(
                         builder: (context, state) {
                           if (state is TodoLoaded) {
-                            if (state.selectDate != null) {
+                            if (state.selectedDate != null) {
                               return Text(
-                                '${state.selectDate!.day}/${state.selectDate!.month}/${state.selectDate!.year}',
+                                '${state.selectedDate!.day}/${state.selectedDate!.month}/${state.selectedDate!.year}',
                               );
                             }
                           }
@@ -51,7 +51,7 @@ class TodoPage extends StatelessWidget {
                         ).then((selectedDate) {
                           if (selectedDate != null) {
                             context.read<TodoBloc>().add(
-                              TodoSelectDate(date: selectedDate),
+                              TodoSelectedDate(date: selectedDate),
                             );
                           }
                         });
@@ -93,11 +93,11 @@ class TodoPage extends StatelessWidget {
                             context.read<TodoBloc>().add(
                               TodoEventAdd(
                                 title: _controller.text,
-                                date: selectDate.selectDate!,
+                                date: selectDate.selectedDate!,
                               ),
                             );
                             _controller.clear();
-                            selectDate.selectDate = null;
+                            selectDate.selectedDate = null;
                           }
                         }
                       },
@@ -154,12 +154,12 @@ class TodoPage extends StatelessWidget {
 
                                         SizedBox(height: 4.0),
                                         Text(
-                                          todo.isComplete
+                                          todo.isCompleted
                                               ? 'completed'
                                               : 'Not Completed',
                                           style: TextStyle(
                                             color:
-                                                todo.isComplete
+                                                todo.isCompleted
                                                     ? Colors.green
                                                     : Colors.red,
                                           ),
@@ -167,7 +167,7 @@ class TodoPage extends StatelessWidget {
                                       ],
                                     ),
                                      Checkbox(
-                                      value: todo.isComplete,
+                                      value: todo.isCompleted,
                                       onChanged: (value) {
                                         context.read<TodoBloc>().add(
                                           TodoEventComplete(index: index),
@@ -182,7 +182,7 @@ class TodoPage extends StatelessWidget {
                         },
                       );
                     } else {
-                      return Center(child: Text('Tida Ada Daftar TODO'));
+                      return Center(child: Text('Tidak Ada Daftar TODO'));
                     }
                   },
                 ),
@@ -192,3 +192,5 @@ class TodoPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
