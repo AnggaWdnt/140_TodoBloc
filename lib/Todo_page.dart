@@ -17,3 +17,20 @@ class TodoPage extends StatelessWidget {
           child: Column(
             children: [
               Text('Todo List'),
+
+               Row(
+                children: [
+                  Column(
+                    children: [
+                      Text('Pilih Tanggal'),
+
+                      BlocBuilder<TodoBloc, TodoState>(
+                        builder: (context, state) {
+                          if (state is TodoLoaded) {
+                            if (state.selectDate != null) {
+                              return Text(
+                                '${state.selectDate!.day}/${state.selectDate!.month}/${state.selectDate!.year}',
+                              );
+                            }
+                          }
+                   
