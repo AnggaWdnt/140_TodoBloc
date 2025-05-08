@@ -61,3 +61,24 @@ class TodoPage extends StatelessWidget {
                   ),
                 ],
               ),
+
+              SizedBox(height: 20),
+              Form(
+                key: _key,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _controller,
+                        decoration: InputDecoration(
+                          labelText: 'Todo',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Masukan data todo';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
